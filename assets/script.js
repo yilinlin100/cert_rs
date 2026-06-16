@@ -593,11 +593,26 @@ init();
 // --- 模拟考试相关逻辑 ---
 
 function generateExam() {
-    // 题型配置（四级）：单选 80，判断 20
-    const config = {
+    // 默认使用四级配置
+    let config = {
         '单选题': 80,
         '判断题': 20
     };
+    
+    // 根据题库名称判断等级，应用不同的题型配置
+    const examId = window.APP_EXAM_ID || '';
+    if (examId.includes('三级') || examId.includes('3级')) {
+        config = {
+            '单选题': 70,
+            '判断题': 10,
+            '多选题': 20
+        };
+    } else if (examId.includes('四级') || examId.includes('4级')) {
+        config = {
+            '单选题': 80,
+            '判断题': 20
+        };
+    }
     
     let selectedQuestions = [];
     
